@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Biella's Corner 💐</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .container {
+        text-align: center;
+      }
+
+      .main-buttons {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+        max-width: 540px; /* based on widest button */
+        margin: 30px auto 0;
+      }
+
+      .main-buttons button {
+        background-color: #99ccff;
+        color: white;
+        padding: 15px 25px;
+        font-size: 18px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        width: 100%; /* takes full column width */
+        box-sizing: border-box;
+      }
+
+      .main-buttons button:hover {
+        background-color: #6699cc;
+      }
+
+      .gif-box {
+        margin-top: 30px;
+        height: 200px; /* fixed height */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      .gif-box img {
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+        border-radius: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 50, 0.2);
+      }
+
+      /* Modal styling */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background: rgba(0, 0, 0, 0.4);
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 20px;
+        position: relative;
+        width: 90%;
+        max-width: 1000px;
+        box-shadow: 0 8px 20px rgba(0, 0, 50, 0.2);
+        animation: popup 0.3s ease-out;
+      }
+
+      .modal-content img {
+        width: 100%;
+        border-radius: 15px;
+      }
+
+      .close {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 22px;
+        cursor: pointer;
+        color: #cc3333;
+        font-weight: bold;
+      }
+
+      @keyframes popup {
+        from {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      #tulipContainer {
+        position: absolute;
+        bottom: 10px;
+        left: 0;
+        width: 100%;
+        height: 0;
+        pointer-events: none;
+        overflow: visible;
+      }
+
+      .tulip {
+        position: absolute;
+        font-size: 22px;
+        animation: floatTulip 2.5s ease-out forwards;
+        opacity: 0;
+      }
+
+      @keyframes floatTulip {
+        0% {
+          transform: translateY(0) scale(1);
+          opacity: 0;
+        }
+        20% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-60px) scale(1.4) rotate(10deg);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 id="mainHeader" style="color: #003366; font-size: 28px">
+        Welcome Biella 💕
+      </h1>
+      <h2 id="greetingMessage" style="color: #ff6699; font-weight: normal"></h2>
+      <div class="heart" style="margin-bottom: 10px">💗</div>
+      <div class="main-buttons">
+        <button onclick="openModal()">🕒 Jadual Kelas Syamim</button>
+        <button onclick="window.location.href='question.html'">
+          💬 Tanya Cikit Bole?
+        </button>
+        <button onclick="openMessageModal('short')">
+          📒 Short Ahhh Message
+        </button>
+        <button onclick="openMessageModal('long')">
+          📖 Long Cringy Text hehe
+        </button>
+      </div>
+
+      <!-- Cute GIF Section -->
+      <div class="gif-box">
+        <img id="changingGif" src="gif/cute/cute1.gif" alt="Cute Gif" />
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="timetableModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img src="img/Jadual_Kelas.jpg" alt="Class Timetable" />
+      </div>
+    </div>
+
+    <!-- Message Modal -->
+    <div id="messageModal" class="modal">
+      <div
+        class="modal-content"
+        style="
+          background: #fff8f0;
+          font-family: 'Georgia', serif;
+          line-height: 1.8;
+        "
+      >
+        <span class="close" onclick="closeMessageModal()">&times;</span>
+        <h2 style="text-align: center; color: #cc6699">💌 A Note for You 💌</h2>
+        <div
+          id="notebookContent"
+          style="
+            white-space: pre-wrap;
+            padding: 10px 20px;
+            border-left: 4px solid #cc6699;
+          "
+        >
+          <!-- Content gets inserted dynamically -->
+        </div>
+        <div id="tulipContainer"></div>
+      </div>
+    </div>
+
+    <script>
+      function openModal() {
+        document.getElementById("timetableModal").style.display = "flex";
+      }
+
+      function closeModal() {
+        document.getElementById("timetableModal").style.display = "none";
+      }
+
+      // Close modal if user clicks outside the content
+      window.addEventListener("click", function (e) {
+        const modal = document.getElementById("timetableModal");
+        if (e.target === modal) {
+          closeModal();
+        }
+      });
+
+      // Changing GIF logic
+      const gifPaths = [
+        "gif/cute/cute1.gif",
+        "gif/cute/cute2.gif",
+        "gif/cute/cute3.gif",
+        "gif/cute/cute4.gif",
+      ];
+      let currentGifIndex = 0;
+      const gifElement = document.getElementById("changingGif");
+
+      setInterval(() => {
+        currentGifIndex = (currentGifIndex + 1) % gifPaths.length;
+        gifElement.src = gifPaths[currentGifIndex];
+      }, 4000); // Change every 4 seconds
+    </script>
+
+    <script>
+      function setGreetingMessage() {
+        const greeting = document.getElementById("greetingMessage");
+        const header = document.getElementById("mainHeader");
+
+        const now = new Date();
+        const hour = now.getHours();
+
+        // Set greeting based on time
+        if (hour >= 5 && hour < 12) {
+          greeting.textContent = "Good morningggg 🌞";
+        } else if (hour >= 12 && hour < 18) {
+          greeting.textContent = "Selamat Petang awaknyaaaa 🌅";
+        } else {
+          greeting.textContent = "Goodnightttt Omeyyy 🌙";
+        }
+
+        // 30% chance to change the header randomly to something sweet
+        if (Math.random() < 0.3) {
+          header.textContent = "rinduuuuuuuuuu biellaaaaa 🥺💗";
+        }
+      }
+
+      // Call it when the page loads
+      setGreetingMessage();
+    </script>
+
+    <script>
+      function openMessageModal(type) {
+        const modal = document.getElementById("messageModal");
+        const content = document.getElementById("notebookContent");
+
+        if (type === "short") {
+          content.textContent =
+            "Just wanted to say (Untuk Nursalsabiella binti Arwin jeee)...\n\nI suka u sgt ii okieeee. You're literally my favourite person and tkde org lain I wanna spend most\nof my time withhhh hehe 💖";
+        } else if (type === "long") {
+          content.textContent =
+            "My Dearest Biella,\n\nI don’t know how to put into words how much kebahagian you bring me. " +
+            "I suka the way you smile, I suka your sweet laugh, I suka how hardworking and focused u are when u study, I suka yang u ngade byk and I paling suka and cherish the time we spent together 🥺💕.\n\n" +
+            "Sometimes I replay your voice in my head and sumpah I just start giggling and smiling mcm org bodo HAHHAHAHAHA " +
+            "You’re literally my whole world. I tknk ckp dgn perempuan lain when I could talk to you, the prettiest and paling comel girl in my life." +
+            "\n\nI will always bersabar dengan u, I janji I won't leave u for another girl, I janji I'll be here with u until the end. You're the one I want to grow old with Biellaa💗." +
+            "\n\nU patut bersyukur tauuuu, I've never done this before for anyone, mmg you're the first girl I buat website ni. Wallahi you're the first! " +
+            "I wouldn't have it any other way sayang, I janji I suka u je, mmg you're the only girl I nak manja ii mcm ni. I hope we'll stay together until the very end hehe <3.";
+
+          // Only show tulips for long message
+          for (let i = 0; i < 12; i++) {
+            const tulip = document.createElement("div");
+            tulip.classList.add("tulip");
+            tulip.textContent = "🌷";
+            tulip.style.left = `${Math.random() * 90}%`;
+            tulip.style.animationDelay = `${Math.random() * 0.8}s`;
+            tulipContainer.appendChild(tulip);
+
+            // Remove each tulip after animation
+            setTimeout(() => {
+              tulip.remove();
+            }, 3000);
+          }
+        }
+
+        modal.style.display = "flex";
+      }
+
+      function closeMessageModal() {
+        document.getElementById("messageModal").style.display = "none";
+        document.getElementById("tulipContainer").innerHTML = ""; // clear tulips
+      }
+
+      // Click outside to close
+      window.addEventListener("click", function (e) {
+        const modal = document.getElementById("messageModal");
+        if (e.target === modal) {
+          closeMessageModal();
+        }
+      });
+    </script>
+  </body>
+</html>

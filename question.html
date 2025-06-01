@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tanya Cikit 💭</title>
+    <style>
+      body {
+        text-align: center;
+        font-family: "Segoe UI", sans-serif;
+        background-color: #fff0f5;
+        margin: 0;
+        padding: 20px;
+      }
+
+      .gif-container {
+        margin: 30px auto;
+        max-width: 400px;
+        height: 250px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .gif-container img {
+        max-height: 100%;
+        width: auto;
+        border-radius: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 50, 0.2);
+      }
+
+      #playVoiceBtn {
+        display: none;
+      }
+
+      .buttons button,
+      #playVoiceBtn,
+      #backBtn {
+        font-size: 18px;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: bold;
+        box-shadow: 0 5px 15px rgba(255, 192, 203, 0.4);
+        position: relative;
+      }
+
+      .yes-btn {
+        background: linear-gradient(145deg, #ffb6c1, #ff69b4);
+        color: white;
+      }
+
+      .no-btn {
+        background: linear-gradient(145deg, #ff9999, #ff4d4d);
+        color: white;
+      }
+
+      #backBtn {
+        background: linear-gradient(145deg, #a3a8ff, #6b6eff);
+        color: white;
+        margin-top: 30px;
+      }
+
+      #playVoiceBtn {
+        background: linear-gradient(145deg, #aee1f9, #79c2f1);
+        color: white;
+        margin-top: 20px;
+      }
+
+      /* Hover effects */
+      .buttons button:hover,
+      #playVoiceBtn:hover,
+      #backBtn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 20px rgba(255, 182, 193, 0.6);
+      }
+
+      /* Optional: Heart animation on hover for Yes button */
+      .yes-btn::after {
+        content: " 💖";
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .yes-btn:hover::after {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="h1-message">Uuuu Sukaaaa I takkkkk? 😳💖</h1>
+
+    <div class="gif-container">
+      <img
+        id="questionGif"
+        src="gif/question/question1.gif"
+        alt="Do you love me?"
+      />
+    </div>
+
+    <div class="buttons" id="buttonContainer">
+      <button class="yes-btn" id="yesBtn" onclick="handleYes()">
+        Suka Sukaaaa 😘
+      </button>
+      <button class="no-btn" id="noBtn" onclick="handleNo()">Tak... 😐</button>
+    </div>
+
+    <button id="playVoiceBtn" onclick="playVoice()">▶️ Play Voice</button>
+    <button id="backBtn" onclick="goBack()">⬅️ Go Back</button>
+
+    <audio id="voiceAudio"></audio>
+
+    <script>
+      const gifElement = document.getElementById("questionGif");
+      const yesBtn = document.getElementById("yesBtn");
+      const noBtn = document.getElementById("noBtn");
+      const buttonContainer = document.getElementById("buttonContainer");
+      const playVoiceBtn = document.getElementById("playVoiceBtn");
+      const voiceAudio = document.getElementById("voiceAudio");
+      const h1Message = document.getElementById("h1-message");
+
+      let noIndex = 1;
+      let yesScale = 1.0;
+      let noScale = 1.0;
+      let noClickCount = 0;
+
+      const h1Messages = [
+        "hmm tak suka?? :(",
+        "Huaaa nape takkk...",
+        "Uuuu benci iii keee??? :((",
+        "Huaaaaaa nak nangis la mcm niiii...",
+      ];
+
+      const gifPaths = [
+        "gif/response/response5.gif",
+        "gif/response/response6.gif",
+        "gif/response/response7.gif",
+      ];
+      let currentGifIndex = 0;
+      let currentMIndex = 0;
+      let intervalId = null;
+
+      function handleNo() {
+        noClickCount++;
+
+        h1Message.textContent = h1Messages[currentMIndex];
+        gifElement.src = `gif/response/response${noIndex}.gif`;
+
+        if (noIndex < 4) {
+          noIndex++;
+          noScale -= 0.2;
+          yesScale += 0.4;
+          currentMIndex++;
+        } else {
+          noIndex = 1;
+        }
+
+        noBtn.style.transform = `scale(${noScale})`;
+        yesBtn.style.transform = `scale(${yesScale})`;
+
+        if (noClickCount >= 4) {
+          noBtn.style.display = "none";
+        }
+      }
+
+      function handleYes() {
+        if (intervalId !== null) return; // prevent multiple intervals
+
+        h1Message.textContent =
+          "Awwww I pun sukaaaa uuuu jugakkkkk hehehehe 😍💕";
+
+        // Start immediately with the first GIF
+        gifElement.src = gifPaths[currentGifIndex];
+
+        intervalId = setInterval(() => {
+          currentGifIndex = (currentGifIndex + 1) % gifPaths.length;
+          gifElement.src = gifPaths[currentGifIndex];
+        }, 4000);
+
+        buttonContainer.style.display = "none";
+        playVoiceBtn.style.display = "inline-block";
+      }
+
+      let currentVoiceIndex = 1;
+
+      function playVoice() {
+        const audioPath = `audio_for_biella/biella${currentVoiceIndex}.aac`;
+        voiceAudio.src = audioPath;
+        voiceAudio.play();
+
+        currentVoiceIndex++;
+        if (currentVoiceIndex > 8) {
+          currentVoiceIndex = 1;
+        }
+      }
+
+      function goBack() {
+        window.location.href = "main.html";
+      }
+    </script>
+  </body>
+</html>

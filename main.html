@@ -141,7 +141,7 @@
   <body>
     <div class="container">
       <h1 id="mainHeader" style="color: #003366; font-size: 28px">
-        Welcome Biella 💕
+        I Minta Maaf Biella... :(
       </h1>
       <h2 id="greetingMessage" style="color: #ff6699; font-weight: normal"></h2>
       <div class="heart" style="margin-bottom: 10px">💗</div>
@@ -155,6 +155,12 @@
         </button>
         <button onclick="openMessageModal('long')">
           📖 Long Cringy Text hehe
+        </button>
+        <button onclick="openMessageModal('apology1')">
+          💔 I'm Sorry Biella
+        </button>
+        <button onclick="openMessageModal('apology2')">
+          💔 Please Forgive Me :(
         </button>
       </div>
 
@@ -276,7 +282,6 @@
             "\n\nU should knooo, I've never done this before for anyone, mmg you're the first girl I buat website ni. Wallahi you're the first! " +
             "I wouldn't have it any other way sayang, I janji I suka u je, mmg you're the only girl I nak manja ii mcm ni. I hope we'll stay together until the very end hehe <3.";
 
-          // Only show tulips for long message
           for (let i = 0; i < 12; i++) {
             const tulip = document.createElement("div");
             tulip.classList.add("tulip");
@@ -285,7 +290,68 @@
             tulip.style.animationDelay = `${Math.random() * 0.8}s`;
             tulipContainer.appendChild(tulip);
 
-            // Remove each tulip after animation
+            setTimeout(() => {
+              tulip.remove();
+            }, 3000);
+          }
+        } else if (type === "apology1") {
+          content.textContent =
+            "Biella,\n\n I sincerely nak minta maaf dengan you. I'm sorry if I wasn't being completely honest " +
+            "with you about vaping but it is true I have stopped already for 2 months and I have no intentions " +
+            "of starting again. I'm also sorry for making you overthink but sumpah " +
+            "they are just friends. You're so important to me and I mmg tkde simpan perempuan lain. I really " +
+            "am just talking to you right now Biella. Honest. I janji. I just hope you can forgive me and at the very " +
+            "least tak benci I sbb fikir I ni ada scandal. I swear I am absolutely not like that.\n\nI'm genuinely sorry biella... " +
+            "I know words are cheap but I can prove them through actions if u would let me. Please give me another chance? " +
+            "I promise I'll be more honest, I promise mmg tkde perempuan lain except you tapi I faham sepenuhnya if you don't want " +
+            "to anymore. I faham I am not the most perfect guy, I make mistakes along the way but I am trying my best " +
+            "to be the best man for you biella. I mmg trying my best.";
+
+          for (let i = 0; i < 12; i++) {
+            const tulip = document.createElement("div");
+            tulip.classList.add("tulip");
+            tulip.textContent = "🌷";
+            tulip.style.left = `${Math.random() * 90}%`;
+            tulip.style.animationDelay = `${Math.random() * 0.8}s`;
+            tulipContainer.appendChild(tulip);
+
+            setTimeout(() => {
+              tulip.remove();
+            }, 3000);
+          }
+        } else if (type === "apology2") {
+          content.textContent =
+            "Tapi I know if u already made up your mind then its okie. I just " +
+            "hope you dapat maafkan segala dosa yang I dah buat dekat you. I dah maafkan you lama dah kalau u dah kasar bahasa. I tauuu " +
+            "u don't actually mean it. I know u just nak push me away and u marah. I try my best to understand from your " +
+            "perspective. I hold no grudges against u and i tk benci u biella. I mmg suka u je hehe. " +
+            "I really hope u dapat maafkan I, and whatever it is I ada je untuk u Biella :) If u ever " +
+            "decide to come home, I'll always have my door open for u. I'll always doa ii u okie jeee, u sihat, u teruskan " +
+            "kehidupan and i doa ii u dapatkan everything u want in life. " +
+            "I'm really sad bcuz I really wanted to play roblox with u, watch all sorts of movies, call dgn u lagi, listen to ur laughs. Maybe " +
+            "even jumpa u one day and buy u matcha, give u tulip flowers and tgk movies dekat cinema hehehe. I am " +
+            "crying as I type this. I miss u so much... " +
+            "these past few days I asyik bukak phone and see if u dah unblock I or something. I just noticed u " +
+            "dah deactivate IG u je. I just harap u tau that I long for u in the most innocent and purest form. I admire u, I adore u " +
+            "and most importantly I love u with all my heart. I promise u I really wouldn't " +
+            "buat bende ii sweet and cringe mcm ni dekat org lain. It was always just u je. Dari awal lagi since we first talked, " +
+            "mmg it was just u Nursalsabiella. U were the only one I wanted to be with. I just hope u tau how sincere " +
+            "I am. I know u deserve to be happy too, to be loved, to be cherished, to be taken care of, to be spoiled, " +
+            "to be adored, to be changed for. U deserve everything biella. I still want to do everything with u. I harap u tau " +
+            "I really really really do care abt u Biella, I always will.\n\n" +
+            "Nah, this might be my final kiss for u, muah muah muahhhhhhhh hehehehe. I love u Biella, I love ur voice, I love ur pretty smile, " +
+            "ur beautiful face, ur flaws and imperfections, I love everything abt u <3 I really mean it, I janji. " +
+            "I really hope u dpt baca semua ni :) and I hope you'll forgive me biella.\n\n" +
+            "Sincerely, Syamim";
+
+          for (let i = 0; i < 12; i++) {
+            const tulip = document.createElement("div");
+            tulip.classList.add("tulip");
+            tulip.textContent = "🌷";
+            tulip.style.left = `${Math.random() * 90}%`;
+            tulip.style.animationDelay = `${Math.random() * 0.8}s`;
+            tulipContainer.appendChild(tulip);
+
             setTimeout(() => {
               tulip.remove();
             }, 3000);

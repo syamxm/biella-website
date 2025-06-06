@@ -162,6 +162,9 @@
         <button onclick="openMessageModal('apology2')">
           💔 Please Forgive Me :(
         </button>
+        <button onclick="openMessageModal('apology3')">
+          💔 Please Baca uu :(
+        </button>
       </div>
 
       <!-- Cute GIF Section -->
@@ -330,8 +333,23 @@
             "kehidupan and i doa ii u dapatkan everything u want in life. " +
             "I'm really sad bcuz I really wanted to play roblox with u, watch all sorts of movies, call dgn u lagi, listen to ur laughs. Maybe " +
             "even jumpa u one day and buy u matcha, give u tulip flowers and tgk movies dekat cinema hehehe. I am " +
-            "crying as I type this. I miss u so much... " +
-            "these past few days I asyik bukak phone and see if u dah unblock I or something. I just noticed u " +
+            "crying as I type this. I miss u so much...\n\n";
+
+          for (let i = 0; i < 12; i++) {
+            const tulip = document.createElement("div");
+            tulip.classList.add("tulip");
+            tulip.textContent = "🌷";
+            tulip.style.left = `${Math.random() * 90}%`;
+            tulip.style.animationDelay = `${Math.random() * 0.8}s`;
+            tulipContainer.appendChild(tulip);
+
+            setTimeout(() => {
+              tulip.remove();
+            }, 3000);
+          }
+        } else if (type === "apology3") {
+          content.textContent =
+            "These past few days I asyik bukak phone and see if u dah unblock I or something. I just noticed u " +
             "dah deactivate IG u je. I just harap u tau that I long for u in the most innocent and purest form. I admire u, I adore u " +
             "and most importantly I love u with all my heart. I promise u I really wouldn't " +
             "buat bende ii sweet and cringe mcm ni dekat org lain. It was always just u je. Dari awal lagi since we first talked, " +

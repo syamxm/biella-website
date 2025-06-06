@@ -156,3 +156,18 @@ button {
     padding: 6px 14px;
   }
 }
+
+@media (max-width: 480px) {
+  .main-buttons button {
+    font-size: 14px; /* ✅ shrink text */
+  }
+
+  h1#mainHeader {
+    font-size: 22px;
+  }
+
+  .modal-content {
+    padding: 15px;
+    font-size: 14px;
+  }
+}
